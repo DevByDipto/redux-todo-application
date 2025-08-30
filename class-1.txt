@@ -1,0 +1,119 @@
+-->
+pure and impure function kii ?
+-->
+incriment:(state,action)=>{
+            state.count += action.payload
+         },
+         aii function ta kivabe pure function?
+ans:🔹 Pure function এর শর্ত
+
+একই input দিলে সর্বদা একই output দিতে হবে।
+
+বাইরের state বা variable পরিবর্তন করা যাবে না (side effects নেই)।
+
+🔹 তোমার function
+increment: (state, action) => {
+    state.count += action.payload
+}
+
+
+এটা Redux Toolkit slice reducer function।
+
+RTK এর createSlice ব্যবহার করার সময়, reducers immer library ব্যবহার করে।
+
+বাস্তবে তুমি যা লিখছো, তা immer এর মাধ্যমে immutable update হিসেবে handle হয়।
+
+🔹 বিশ্লেষণ
+
+state.count += action.payload state পরিবর্তন করছে, তাই technically এটি impure code।
+
+তবে Redux Toolkit + immer এর context এ, এটি safe এবং conceptual ভাবে “pure” মনে করা হয়, কারণ:
+
+বাইরের global variable পরিবর্তন হচ্ছে না
+
+Immer internally একটা নতুন state object তৈরি করছে
+
+যে তুমি বলেছো “undefined return হচ্ছে” → তা গুরুত্বপূর্ণ নয়। Redux reducers state update করে return করা বাধ্যতামূলক নয়, Immer internally state handle করে।
+
+🔹 সারাংশ
+
+Pure function ≠ return value দিতে হবে।
+
+Real Redux context এ, তুমি state mutate করলেও Immer-এর কারণে slice reducers functional/pure style এর হিসেবে কাজ করে।
+
+কিন্তু technically, যদি তুমি সরাসরি বাইরের variable পরিবর্তন করো, তখন সেটা impure।
+
+Immer er bishoi ta kii ?
+ans: ১. সমস্যা যা Immer সমাধান করে
+
+Redux এ state immutable হতে হবে।
+
+মানে: তুমি সরাসরি state পরিবর্তন করতে পারবে না।
+
+উদাহরণ:
+
+let state = { count: 0 };
+function increment(state) {
+  state.count += 1; // ❌ এটা সরাসরি পরিবর্তন করছে → impure
+}
+
+
+যদি তুমি সরাসরি পরিবর্তন করো, Redux এর নিয়ম ভঙ্গ হবে।
+
+🔹 ২. Immer কী?
+
+Immer হলো একটি library, যা তোমার mutable-looking code কে internally immutable বানিয়ে দেয়।
+
+তুমি মনে করো তুমি state পরিবর্তন করছো,
+
+কিন্তু Immer internally নতুন state copy তৈরি করে, original state ঠিক থাকে।
+
+💡 সহজ analogy:
+
+তুমি একটি কাগজে ছবি আঁকছো (original state)।
+
+Immer secretly একটা copy কাগজ বানায়।
+
+তুমি যেটা modify করছো, তা copy-তে হচ্ছে।
+
+মূল কাগজ (original state) ঠিক থাকে।
+
+🔹 ৩. উদাহরণ
+import { createSlice } from "@reduxjs/toolkit";
+
+const counterSlice = createSlice({
+  name: "counter",
+  initialState: { count: 0 },
+  reducers: {
+    increment: (state) => {
+      state.count += 1; // এটা mutable দেখাচ্ছে
+    }
+  }
+})
+
+
+
+
+কি হচ্ছে internally:
+
+Immer দেখে তুমি state.count += 1 লিখেছো
+
+Immer internally নতুন state তৈরি করে
+
+Redux store-এ নতুন state replace হয়, original state safe থাকে
+
+🔹 ৪. কেন এটা গুরুত্বপূর্ণ
+
+তুমি সহজে mutable-looking code লিখতে পারো
+
+তবে state safe থাকে → immutable
+
+Reducers clean, simple, এবং bug-free হয়
+
+💡 সংক্ষেপে:
+
+Immer = magic library যেটা mutable code কে immutable বানায়।
+
+তুমি mutable লিখো → Immer internally immutable handle করে।
+
+এটাই Redux Toolkit কে এত সহজ এবং safe করে তোলে।
