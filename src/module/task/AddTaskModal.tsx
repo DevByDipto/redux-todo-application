@@ -16,20 +16,39 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
+import { addTask } from "@/redux/feature/task/taskSlice"
 import type { ITask } from "@/type"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select"
 import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router"
 // full code ta buja ??
 export function AddTaskModal() {
 
-   
     const form = useForm<ITask>()
+    const dispatch = useDispatch()
 
-    const onSubmit = (data:ITask)=>{
-        console.log(data);
+//  const onSubmit : SubmitHandler<FieldValue> = (data)=>{
+//       // console.log(data.dueDate)
+//         // console.log(data);
+//         const taskData = {
+//           ...data,
+//           dueDate: new Date(data.dueDate).toISOString()
+//         }
+//         dispatch(addTask(taskData))
+        
+//     }
+
+    const onSubmit  = (data:ITask)=>{
+      // console.log(data.dueDate)
+        // console.log(data);
+        const taskData = {
+          ...data,
+          dueDate: new Date(data.dueDate).toISOString()
+        }
+        dispatch(addTask(taskData))
         
     }
   return (

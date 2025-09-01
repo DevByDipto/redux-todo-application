@@ -1,8 +1,8 @@
-export type ITask = {
-  id: string;
+export type ITask = { // I keno dilo mane task nah hoye ITask keno
+  id: string; 
   title: string;
   description: string;
-  dueDate: Date;
+  dueDate: string;
   isCompleted: boolean;
-  priority: "High" | "Medium" | "Low";
+  priority: "high" | "medium" | "low";
 };
