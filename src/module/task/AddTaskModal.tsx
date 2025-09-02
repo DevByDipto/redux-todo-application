@@ -97,7 +97,31 @@ export function AddTaskModal() {
       </FormItem>
     )}
   />
-  {/* selector input */}
+  {/* selector priority */}
+   <FormField
+          control={form.control}
+          name="priority"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Priority</FormLabel>
+              <Select onValueChange={field.onChange} 
+              value={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a verified Priority to display" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                </SelectContent>
+              </Select>
+                            
+            </FormItem>
+          )}
+        />
+  {/* selector assignnabble user */}
    <FormField
           control={form.control}
           name="priority"
