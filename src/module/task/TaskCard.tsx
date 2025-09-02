@@ -2,8 +2,9 @@ import React from "react";
 import type {ITask} from "@/type";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteTask, toggleCompleteStatus } from "@/redux/feature/task/taskSlice";
+import { selectUsers } from "@/redux/feature/user/userSlice";
 
 type TaskCardProps = {
   task: ITask;
@@ -12,6 +13,10 @@ type TaskCardProps = {
 const TaskCard = ({ task }: TaskCardProps) => {
   //  console.log({task});
   const dispatch = useDispatch()
+  const users = useSelector(selectUsers)
+
+  const assignUser = users.find((user)=> user.id ==task.assignedTo )
+   console.log(assignUser);
    
   return (
     <div className="border p-4 rounded shadow flex justify-between mt-3">
@@ -28,6 +33,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
          {"line-through" : task.isCompleted}
         )}>{task.title}</h2>
         </div>
+        <p>Assigned To: {assignUser ? assignUser.name : "no-one"}</p>
         <p>{task.description}</p>
       </div>
       <div>

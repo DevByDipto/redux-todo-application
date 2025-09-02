@@ -5,6 +5,7 @@ export type ITask = { // I keno dilo mane task nah hoye ITask keno
   dueDate: string;
   isCompleted: boolean;
   priority: "high" | "medium" | "low";
+  assignedTo: string | null // aikhane key er nam assign nah diye assignTo keno dilam ?
 };
 
 export type Iuser = {

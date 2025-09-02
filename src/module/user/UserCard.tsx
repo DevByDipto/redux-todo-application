@@ -12,7 +12,6 @@ const UserCard = ({user}:{user:Iuser}) => {
        <h2>{user.name}</h2>
       </div>
       <div>
-        
         <button onClick={()=>dispatch(deleteUser(user.id))}>delete</button>
       </div>
     </div>

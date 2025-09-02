@@ -12,6 +12,10 @@ const initialState: InitialState = {
         {
             id: "1",
             name: "dipto"
+        },
+        {
+            id: "2",
+            name: "rahul"
         }
     ]
 }
@@ -37,7 +41,8 @@ export const userSlice = createSlice({
         deleteUser: (state, action: PayloadAction<string>) => {
             state.users = state.users.filter((user) => user.id !== action.payload)
         }
-    }
+    },
+    
 })
 
 export const selectUsers = (state: RootState) => { return state.user.users } // selectUsers keno nam dewa hoise ?RootState keno use kora hoise ?

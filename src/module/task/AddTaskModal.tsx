@@ -17,12 +17,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { addTask } from "@/redux/feature/task/taskSlice"
+import { selectUsers } from "@/redux/feature/user/userSlice"
 import type { ITask } from "@/type"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select"
 import { useForm } from "react-hook-form"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router"
 // full code ta buja ??
 export function AddTaskModal() {
@@ -49,8 +50,9 @@ export function AddTaskModal() {
           dueDate: new Date(data.dueDate).toISOString()
         }
         dispatch(addTask(taskData))
-        
     }
+
+    const users = useSelector(selectUsers)
   return (
     <Dialog>
       <form>
@@ -124,10 +126,10 @@ export function AddTaskModal() {
   {/* selector assignnabble user */}
    <FormField
           control={form.control}
-          name="priority"
+          name="assignedTo"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Priority</FormLabel>
+              <FormLabel>Assigne To</FormLabel>
               <Select onValueChange={field.onChange} 
               value={field.value}>
                 <FormControl>
@@ -136,9 +138,7 @@ export function AddTaskModal() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="low">Low</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="high">High</SelectItem>
+                  {users.map((user)=> <SelectItem value={user.id} key={user.id}>{user.name}</SelectItem>)}
                 </SelectContent>
               </Select>
                             

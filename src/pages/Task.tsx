@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 const Task = () => {
   const tasks = useAppSelector(selectTasks);
-  console.log(tasks);
+  // console.log(tasks);
   
 const dispatch = useDispatch()
   return (
