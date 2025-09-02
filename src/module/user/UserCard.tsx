@@ -1,4 +1,3 @@
-import { deleteUser, selectUsers } from '@/redux/feature/user/userSlice'
 import type { Iuser } from '@/type'
 import React from 'react'
 import { useDispatch } from 'react-redux'

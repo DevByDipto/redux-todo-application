@@ -1,16 +1,19 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AddTaskModal } from "@/module/task/AddTaskModal";
 import TaskCard from "@/module/task/TaskCard";
-import { selectTasks, updateFilter } from "@/redux/feature/task/taskSlice";
+import { useGetTaskQuery } from "@/redux/api/baseapi";
 import { useAppSelector } from "@/redux/hook";
 import React from "react";
 import { useDispatch } from "react-redux";
 
 const Task = () => {
-  const tasks = useAppSelector(selectTasks);
-  // console.log(tasks);
-  
-const dispatch = useDispatch()
+const {data,isLoading} = useGetTaskQuery(undefined)// undefined keno dilam ?
+console.log(data);
+
+if(isLoading){
+return <p>Loading....</p>
+}
+
   return (
     <div>
       <div className="flex justify-between">
@@ -19,10 +22,10 @@ const dispatch = useDispatch()
          <div>
       <Tabs defaultValue="all">
         <TabsList>
-          <TabsTrigger onClick={()=>dispatch(updateFilter('all'))} value="all">All</TabsTrigger>
-          <TabsTrigger onClick={()=>dispatch(updateFilter('low'))} value="low">Low</TabsTrigger>
-          <TabsTrigger onClick={()=>dispatch(updateFilter('medium'))} value="medium">Medium</TabsTrigger>
-          <TabsTrigger onClick={()=>dispatch(updateFilter('high'))} value="high">High</TabsTrigger>
+          <TabsTrigger value="all">All</TabsTrigger>
+          <TabsTrigger value="low">Low</TabsTrigger>
+          <TabsTrigger value="medium">Medium</TabsTrigger>
+          <TabsTrigger  value="high">High</TabsTrigger>
         </TabsList>
         </Tabs>
       </div>
@@ -30,8 +33,10 @@ const dispatch = useDispatch()
       </div>
      </div>
       <div>
-        {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
+        {!isLoading && data.tasks.map((task) => (
+          // console.log(task)
+          
+          <TaskCard key={task._id} task={task} />
         ))}
       </div>
     </div>

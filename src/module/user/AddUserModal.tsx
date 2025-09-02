@@ -17,7 +17,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { addUser } from "@/redux/feature/user/userSlice";
 import type { Iuser } from "@/type";
 import { DialogClose } from "@radix-ui/react-dialog";
 import React from "react";
@@ -26,11 +25,7 @@ import { useDispatch } from "react-redux";
 
 const AddUserModal = () => {
   const form = useForm();
-  const dispatch = useDispatch()
-  const onSubmit :SubmitHandler<FieldValues> = (data) => { // aikhane data te Iuser er id missing tobu o error dicche nah keno ?SubmitHandler<FieldValues> keno use korlam kii bujacche aita dara??
-dispatch(addUser(data)) //error ta kii dicche ?
-    // console.log(data);
-  };
+  
 
 
   return (
