@@ -15,9 +15,7 @@ const dispatch = useDispatch()
     <div>
       <div className="flex justify-between">
         <h1 className="text-2xl py-5 ">all task</h1>
-        <div className="flex gap-5">
-
-        
+        <div className="flex gap-5">      
          <div>
       <Tabs defaultValue="all">
         <TabsList>
