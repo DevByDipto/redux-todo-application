@@ -46,19 +46,41 @@ export const taskSlice = createSlice({
         },
         deleteTask: (state, action: PayloadAction<string>) => {
             state.tasks = state.tasks.filter((task) => task.id !== action.payload)
-        }
+        },
+        updateFilter: (state, action: PayloadAction<"all" | "low" | "medium" | "high">) => {
+            
+            state.filter = action.payload
+            // console.log(state.filter)
+            // console.log(initialState.filter)
+        },
+
+
     },
-    updateFilter: (state, action: PayloadAction<"low" | "medium" | "high">) => {
-      
-        state.filter = action.payload
 
-
-    }
 
 
 })
 // console.log(taskSlice);
 export default taskSlice.reducer;
-export const { addTask, toggleCompleteStatus, deleteTask } = taskSlice.actions
+export const { addTask, toggleCompleteStatus, deleteTask, updateFilter } = taskSlice.actions
 
-export const selectTasks = (state: RootState) => state.todo.tasks; // RootState keno use korchi ?
+export const selectTasks = (state: RootState) => {
+    console.log(state.todo.filter);
+     if (state.todo.filter == "all") {
+        return state.todo.tasks
+     }
+            return state.todo.tasks.filter((task) => task.priority == state.todo.filter)
+        // } else if (state.todo.filter == "medium") {
+        //     return task
+        // }
+        // else if (state.todo.filter == "high") {
+        //     return task
+        // } else {
+        //     return task
+        // }
+    
+       
+    // })
+
+
+}; // RootState keno use korchi ?

@@ -31,7 +31,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
         <p>{task.description}</p>
       </div>
       <div>
-        <Input type="checkbox" name="" id="" onClick={()=>dispatch(toggleCompleteStatus(task.id))}/>
+        <Input defaultChecked={task.isCompleted} type="checkbox" name="" id="" onClick={()=>dispatch(toggleCompleteStatus(task.id))}/>
         <button onClick={()=>dispatch(deleteTask(task.id))}>delete</button>
       </div>
     </div>
